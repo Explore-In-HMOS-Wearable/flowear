@@ -1,0 +1,13 @@
+{
+  "modelVersion": "5.1.0",
+  "description": "Please describe the basic information.",
+  "dependencies": {
+    "@mui/dayjs": "^1.11.13",
+    "dayjs": "^1.11.13",
+    "@iakii/icons": "^1.0.0",
+    "@ibestservices/ucharts": "^1.1.0"
+  },
+  "devDependencies": {
+  },
+  "dynamicDependencies": {}
+}
