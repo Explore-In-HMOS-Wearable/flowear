@@ -1,4 +1,4 @@
-export const authUrl = `https://oauth-login.cloud.huawei.com/oauth2/v3/token}`;
+export const AUTH_URL = `https://oauth-login.cloud.huawei.com/oauth2/v3/token`;
 
 export const MONTHS = [
   'Jan', 'Feb', 'Mar', 'Apr',

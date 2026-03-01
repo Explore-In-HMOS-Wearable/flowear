@@ -36,7 +36,7 @@ export class StorageImpl implements Storage {
     await this.prefs.flush();
   }
 
-  has(key:string): boolean | undefined {
+  has(key: string): boolean | undefined {
     if (!this.prefs) {
       console.error('[STORAGE] prefs NOT initialized');
       return false;

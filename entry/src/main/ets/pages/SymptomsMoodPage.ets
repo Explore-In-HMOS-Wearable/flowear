@@ -31,26 +31,26 @@ export struct SymptomsMoodPage {
               this.pageStack.pop();
             }
           }
-        })
+        });
       } else {
         Column() {
           Text(`Let's Check How You Are`)
-            .fontColor(Color.Black)
-          Blank().height(15)
+            .fontColor(Color.Black);
+          Blank().height(15);
           Button('Start')
             .backgroundColor('#E86164')
             .onClick(() => {
-            this.shouldShowQuiz = true;
-          })
+              this.shouldShowQuiz = true;
+            });
         }
         .height('100%')
-        .justifyContent(FlexAlign.Center)
+        .justifyContent(FlexAlign.Center);
       }
     }
-    .backgroundColor(Color.White)
+    .backgroundColor($r('app.color.background_color'))
     .width('100%')
     .height('100%')
-    .hideTitleBar(true)
+    .hideTitleBar(true);
   }
 }
 

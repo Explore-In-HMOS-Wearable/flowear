@@ -1,5 +1,3 @@
-> **Note:** To access all shared projects, get information about environment setup, and view other guides, please visit [Explore-In-HMOS-Wearable Index](https://github.com/Explore-In-HMOS-Wearable/hmos-index).
-
 # Flowear
 A health application that offers period tracking, mood checking and personalized health recommendations based on your mood. Helping you better understand your body and emotional state.
 It supports a more informed and mindful daily routine.
@@ -28,8 +26,8 @@ It supports a more informed and mindful daily routine.
 ## Stack (Languages, Frameworks, Tools, Libraries, *3rd Party)
 
 - **Languages**: ArkTS, ArkUI
-- **Frameworks**: HarmonyOS SDK 6.0.0(20)
-- **Tools**: DevEco Studio Version 6.0.0
+- **Frameworks**: Framework: ArkUI (HarmonyOS NEXT)
+- **Tools**: DevEco Studio Version 5.1.0 (API 18)
 - **Libraries**:
     - `@kit.ArkUI`
     - `@kit.AbilityKit`
@@ -59,10 +57,12 @@ entry/
 │ │ ├── ButtonComponent.ets
 │ │ ├── HealthDataComponent.ets
 │ │ ├── HistoryComponent.ets
-│ │ └── MoodQuestionComponent.ets
+│ │ ├── MoodQuestionComponent.ets
+│ │ └── StretchExercise.ets
 │ │
 │ ├── datasource/
 │ │ ├── MeditationDataSource.ets
+│ │ ├── StretchDataSource.ets
 │ │ └── SymptomsMoodQuestions.ets
 │ │
 │ ├── entryability/
@@ -79,6 +79,7 @@ entry/
 │ ├── model/
 │ │ ├── MeditationModel.ets
 │ │ ├── Model.ets
+│ │ ├── StretchModel.ets
 │ │ ├── SuggestionBodyModel.ets
 │ │ ├── SymptomQuestionModel.ets
 │ │ └── TokenResponse.ets
@@ -108,6 +109,7 @@ entry/
 │ │
 │ ├── viewmodel/
 │   ├── HealthDataViewModel.ets
+│   ├── LoginViewModel.ets
 │   ├── ManualLoginViewModel.ets
 │   ├── MeditationViewModel.ets
 │   └── SymptomsMoodViewModel.ets
@@ -123,4 +125,4 @@ entry/
 
 # License (MIT)
 
-Flowra is distributed under the terms of the MIT License. See the [LICENSE](./LICENSE) for more information.
+Flowear is distributed under the terms of the MIT License. See the [LICENSE](./LICENSE) for more information.

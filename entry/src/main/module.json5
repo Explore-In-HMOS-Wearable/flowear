@@ -63,6 +63,9 @@
           ],
           "when": "inuse"
         }
+      },
+      {
+        "name": "ohos.permission.PUBLISH_AGENT_REMINDER"
       }]
   }
 }

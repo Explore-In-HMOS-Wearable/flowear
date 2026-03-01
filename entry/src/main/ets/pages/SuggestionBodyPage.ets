@@ -14,19 +14,23 @@ export struct SuggestionBodyPage {
               .fontSize(14)
               .fontColor('#e86164')
               .textAlign(TextAlign.Center)
-              .padding({ left: 24, right: 24 })
+              .padding({ left: 24, right: 24 });
           }
           .width('100%')
           .height('100%')
           .justifyContent(FlexAlign.Center)
-          .alignItems(HorizontalAlign.Center)
-        }, (item: string, index: number) => item)
+          .alignItems(HorizontalAlign.Center);
+        }, (item: string, index: number) => item);
       }
+      .indicator(
+        new DotIndicator()
+          .color(Color.Gray)
+          .selectedColor('#E86164'))
       .vertical(true)
       .width('100%')
-      .height('100%')
+      .height('100%');
     }
     .hideTitleBar(true)
-    .backgroundColor(Color.White)
+    .backgroundColor($r('app.color.background_color'));
   }
 }

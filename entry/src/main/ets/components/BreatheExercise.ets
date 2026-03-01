@@ -20,7 +20,7 @@ export struct BreatheExercise {
   @State breathPhase: string = TEXT_BREATH_IN;
   @State isExpanding: boolean = false;
   @State exerciseCount: number = 0;
-  private totalCycles: number = 5;
+  totalCycles: number = 5;
   @State phaseTimer: number = 0;
   private countdownTimer: number = -1;
   private breathTimer: number = -1;
@@ -34,7 +34,7 @@ export struct BreatheExercise {
       this.countdown--;
       if (this.countdown === 0) {
         clearInterval(this.countdownTimer);
-          this.startExercise();
+        this.startExercise();
       }
     }, 1000);
   }
@@ -120,7 +120,7 @@ export struct BreatheExercise {
               .fontSize(18)
               .fontWeight(FontWeight.Bold)
               .margin({ bottom: 30 })
-              .fontColor('#ffae1c1c')
+              .fontColor('#ffae1c1c');
 
             Button(TEXT_START_BUTTON)
               .fontSize(20)
@@ -128,12 +128,12 @@ export struct BreatheExercise {
               .height(35)
               .onClick(() => {
                 this.startCountdown();
-              })
+              });
           }
           .width('100%')
           .height('100%')
           .justifyContent(FlexAlign.Center)
-          .backgroundColor('#F5F5F5')
+          .backgroundColor('#F5F5F5');
 
         } else if (this.countdown > 0) {
           Column() {
@@ -141,17 +141,17 @@ export struct BreatheExercise {
               .fontSize(20)
               .opacity(0.7)
               .margin({ bottom: 30 })
-              .fontColor('#000')
+              .fontColor('#000');
 
             Text(this.countdown.toString())
               .fontSize(100)
               .fontWeight(FontWeight.Bold)
-              .fontColor('#007DFF')
+              .fontColor('#007DFF');
           }
           .width('100%')
           .height('100%')
           .justifyContent(FlexAlign.Center)
-          .backgroundColor('#F5F5F5')
+          .backgroundColor('#F5F5F5');
 
         } else if (this.isExercising) {
           Stack() {
@@ -220,14 +220,14 @@ export struct BreatheExercise {
                 noiseScale: 1,
                 noiseFrequency: 1,
                 noiseAmplitude: 1
-              }])
+              }]);
 
             Column() {
               Text(`${this.exerciseCount + 1} / ${this.totalCycles}`)
                 .fontSize(16)
                 .opacity(0.5)
                 .margin({ top: 30, bottom: 10 })
-                .fontColor('#000')
+                .fontColor('#000');
 
               Text(this.breathPhase)
                 .fontSize(32)
@@ -236,15 +236,15 @@ export struct BreatheExercise {
                   this.breathPhase === TEXT_BREATH_IN ? '#4CAF50' :
                     this.breathPhase === TEXT_HOLD ? '#FF9800' : '#2196F3'
                 )
-                .margin({ bottom: 5 })
+                .margin({ bottom: 5 });
 
               Text(`${this.phaseTimer} ${TEXT_SECONDS}`)
                 .fontSize(18)
                 .opacity(0.6)
-                .fontColor('#000')
+                .fontColor('#000');
             }
             .width('100%')
-            .position({ x: 0, y: 0 })
+            .position({ x: 0, y: 0 });
 
             Button(TEXT_STOP_BUTTON)
               .fontSize(16)
@@ -255,24 +255,24 @@ export struct BreatheExercise {
               .translate({ x: '-50%', y: '-50%' })
               .onClick(() => {
                 this.resetExercise();
-              })
+              });
           }
           .width('100%')
           .height('100%')
-          .backgroundColor('#FFFFFF')
+          .backgroundColor('#FFFFFF');
 
-        } else if (this.isExerciseCompleted && this.isStarted ) {
+        } else if (this.isExerciseCompleted && this.isStarted) {
           Column() {
             Text(TEXT_CHECKMARK)
               .fontSize(50)
               .fontColor('#4CAF50')
-              .margin({ bottom: 20 })
+              .margin({ bottom: 20 });
 
             Text(TEXT_COMPLETED)
               .fontSize(24)
               .fontWeight(FontWeight.Bold)
               .margin({ bottom: 30 })
-              .fontColor('#000')
+              .fontColor('#000');
 
             Button(TEXT_RESTART_BUTTON)
               .fontSize(18)
@@ -280,19 +280,19 @@ export struct BreatheExercise {
               .height(40)
               .onClick(() => {
                 this.resetExercise();
-              })
+              });
           }
           .width('100%')
           .height('100%')
           .justifyContent(FlexAlign.Center)
-          .backgroundColor('#F5F5F5')
+          .backgroundColor('#F5F5F5');
         }
       }
       .width('100%')
-      .height('100%')
+      .height('100%');
     }
     .width('100%')
     .height('100%')
-    .hideTitleBar(true)
+    .hideTitleBar(true);
   }
 }

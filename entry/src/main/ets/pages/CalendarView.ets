@@ -2,18 +2,22 @@ import { CustomContentDialog } from '@kit.ArkUI';
 import { getMonth, getNextDate, getPreviousDate, getYear } from '../lib/Utils';
 import { YearMonthSelector } from './YearMonthSelector';
 import { WEEK_DAYS } from '../lib/Constants';
-import { ListDataSource } from '../services/ListDataSource';
+import ListDataSource from '../services/ListDataSource';
 import dayjs from 'dayjs';
 import { CycleManager } from '../services/CycleManager';
+import {
+  cancelOlderScheduledNotification,
+  scheduleNotificationForSpecificDate
+} from '../components/NotificationComponent';
 
 @Component
 export struct CalendarView {
-  private selectedStartDay: number | null = null;
+  selectedStartDay: number | null = null;
   @State selectionBaseDate: Date | null = null;
-  private showConfirm: boolean = false;
+  showConfirm: boolean = false;
   @Consume('NavPathStack') pageStack: NavPathStack;
   @State loading: boolean = true;
-  @State currentDate: Date = new Date();
+  currentDate: Date = new Date();
   @State month: string = getMonth(this.currentDate.getTime());
   @State year: string = getYear(this.currentDate.getTime());
   private days: ListDataSource<MonthDay> = new ListDataSource<MonthDay>();
@@ -44,16 +48,16 @@ export struct CalendarView {
         this.selectionBaseDate = date;
       }
 
-      this._computedCurrentMonthDays(this.currentDate).then((days) => {
+      this.computedCurrentMonthDays(this.currentDate).then((days) => {
         this.loading = false;
         this.days.resetData();
         days.forEach(d => this.days.pushData(d));
-        this._applySelection();
+        this.applySelection();
       });
     });
   }
 
-  private async _computedCurrentMonthDays(date: Date): Promise<MonthDay[]> {
+  private async computedCurrentMonthDays(date: Date): Promise<MonthDay[]> {
     const days: MonthDay[] = [];
     const today = new Date();
 
@@ -110,27 +114,27 @@ export struct CalendarView {
           this.year = getYear(currentDate.getTime());
           this.loading = true;
 
-          this._computedCurrentMonthDays(currentDate).then((days) => {
+          this.computedCurrentMonthDays(currentDate).then((days) => {
             this.loading = false;
             this.days.resetData();
             days.forEach((day) => {
               this.days.pushData(day);
             });
-            this._applySelection();
+            this.applySelection();
           });
         },
         onClose: () => {
           this.dialogController.close();
         }
-      })
-    }
+      });
+    };
   }
 
   @Builder
   monthDayBuilder(monthDay: MonthDay) {
     if (monthDay.isNotCurrent || monthDay.index === 0) {
       GridItem() {
-      }
+      };
     } else {
       GridItem() {
         Text(`${monthDay.index}`)
@@ -157,11 +161,13 @@ export struct CalendarView {
           .onClick(() => {
             const base = new Date(this.currentDate);
             base.setDate(monthDay.index);
+
             this.selectionBaseDate = base;
+
             CycleManager.setBaseDate(base);
             this.confirmDialog.open();
-          })
-      }
+          });
+      };
     }
   }
 
@@ -170,30 +176,36 @@ export struct CalendarView {
     Column() {
       Text('Are you sure?')
         .fontWeight(FontWeight.Bold)
-        .margin({ bottom: 5 })
+        .margin({ bottom: 5 });
       Text('This will select repeating 7-day periods.')
-        .margin({ bottom: 10 })
+        .margin({ bottom: 10 });
       Row({ space: 5 }) {
         Button('Cancel')
           .fontSize(14)
           .onClick(() => {
             this.confirmDialog.close();
           })
-          .height('30%')
+          .height('30%');
         Button('OK')
           .fontSize(14)
           .onClick(() => {
-            this._applySelection();
+            if (this.selectionBaseDate) {
+              cancelOlderScheduledNotification();
+              scheduleNotificationForSpecificDate(new Date(this.selectionBaseDate.getFullYear(),
+                this.selectionBaseDate.getMonth(),
+                this.selectionBaseDate.getDate()));
+            }
+            this.applySelection();
             this.confirmDialog.close();
           })
-          .height('30%')
-      }
+          .height('30%');
+      };
     }
     .margin({ left: 15, bottom: 15 })
-    .height('50%')
+    .height('50%');
   }
 
-  private _applySelection() {
+  private applySelection() {
     if (!this.selectionBaseDate) {
       return;
     }
@@ -237,6 +249,10 @@ export struct CalendarView {
   build() {
     NavDestination() {
       Column() {
+        Stack()
+          .backgroundColor($r('app.color.main_color'))
+          .height('15%')
+          .width('100%');
         Text(`${this.month}, ${this.year}`)
           .fontWeight(FontWeight.Bold)
           .textAlign(TextAlign.Center)
@@ -244,40 +260,40 @@ export struct CalendarView {
           .padding({ bottom: '5vp' })
           .onClick(() => {
             this.dialogController.open();
-          })
+          });
         if (this.loading) {
           LoadingProgress()
             .width('50vp')
-            .height('50vp')
+            .height('50vp');
         } else {
           Grid() {
             ForEach(WEEK_DAYS, (day: string, index: number) => {
               GridItem() {
                 Text(day)
                   .fontColor(index === 0 || index === 6 ? '#e64547' : Color.Black)
-                  .textAlign(TextAlign.Center)
-              }
+                  .textAlign(TextAlign.Center);
+              };
             }, (day: string, index: number) => day
-            )
+            );
             LazyForEach(
               this.days,
               (monthDay: MonthDay) => this.monthDayBuilder(monthDay),
               (monthDay: MonthDay) => `${monthDay.index}`
-            )
+            );
           }
           .columnsTemplate('1fr 1fr 1fr 1fr 1fr 1fr 1fr')
           .rowsTemplate('1fr 1fr 1fr 1fr 1fr 1fr 1fr')
           .columnsGap(1)
           .rowsGap(1)
           .width('80%')
-          .height('65%')
+          .height('65%');
         }
       }
       .padding({
         left: this.context.getWindowWidthBreakpoint() / 4.5,
         top: 0
       })
-      .justifyContent(FlexAlign.Center)
+      .justifyContent(FlexAlign.Start)
       .alignItems(HorizontalAlign.Center)
       .width('100%')
       .height('100%')
@@ -293,22 +309,22 @@ export struct CalendarView {
             }
             this.currentDate = newDate;
             this.loading = true;
-            this._computedCurrentMonthDays(newDate).then((days) => {
+            this.computedCurrentMonthDays(newDate).then((days) => {
               this.loading = false;
               this.days.resetData();
               days.forEach((day) => {
                 this.days.pushData(day);
               });
-              this._applySelection();
+              this.applySelection();
             });
             this.month = getMonth(newDate.getTime());
             this.year = getYear(newDate.getTime());
           })
-      )
+      );
     }
-    .backgroundColor(Color.White)
+    .backgroundColor($r('app.color.background_color'))
     .hideTitleBar(true)
-    .hideBackButton(true)
+    .hideBackButton(true);
   }
 }
 

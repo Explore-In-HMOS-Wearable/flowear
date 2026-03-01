@@ -5,7 +5,7 @@ export class YearDataSource implements IDataSource {
   private listeners: DataChangeListener[] = [];
 
   constructor(minYear: number, maxYear: number) {
-    this._generateYears(minYear, maxYear);
+    this.generateYears(minYear, maxYear);
   }
 
   totalCount(): number {
@@ -32,18 +32,18 @@ export class YearDataSource implements IDataSource {
   }
 
   updateYearRange(minYear: number, maxYear: number) {
-    this._generateYears(minYear, maxYear);
-    this._notifyDataReload();
+    this.generateYears(minYear, maxYear);
+    this.notifyDataReload();
   }
 
-  private _generateYears(minYear: number, maxYear: number) {
+  private generateYears(minYear: number, maxYear: number) {
     this.years = [];
     for (let year = minYear; year < maxYear; year++) {
       this.years.push(year);
     }
   }
 
-  private _notifyDataReload() {
+  private notifyDataReload() {
     this.listeners.forEach((listener) => {
       listener.onDataReloaded();
     });

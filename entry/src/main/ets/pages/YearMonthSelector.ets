@@ -28,10 +28,10 @@ export struct YearMonthSelector {
         (yearItem: YearItem) => {
           GridItem() {
             this.builderYearListItem(yearItem.year);
-          }
+          };
         },
         (yearItem: YearItem) => yearItem.year.toString()
-      )
+      );
     }
     .columnsTemplate('1fr 1fr 1fr')
     .rowsGap(5)
@@ -43,8 +43,8 @@ export struct YearMonthSelector {
     .width('100%')
     .height(100)
     .onAppear(() => {
-      this._scrollToYear();
-    })
+      this.scrollToYear();
+    });
   }
 
   @Builder
@@ -55,16 +55,16 @@ export struct YearMonthSelector {
         (month: string) => {
           GridItem() {
             this.builderMonthListItem(month);
-          }
+          };
         },
         (month: string) => month,
-      )
+      );
     }
     .columnsTemplate('1fr 1fr 1fr')
     .rowsGap(5)
     .columnsGap(5)
     .width('100%')
-    .height('100%')
+    .height('100%');
   }
 
   build() {
@@ -77,15 +77,15 @@ export struct YearMonthSelector {
           .margin({ right: 10 })
           .fontSize(14)
           .onClick(() => {
-            this._navigateYears(-10);
-          })
+            this.navigateYears(-10);
+          });
         Text(`${this.isMonthView ? this.selectedMonth : this.selectedYear}`)
           .fontSize(14)
           .fontWeight(FontWeight.Bold)
           .fontColor(Color.Black)
           .textAlign(TextAlign.Center)
           .layoutWeight(1)
-          .margin({ bottom: 10 })
+          .margin({ bottom: 10 });
         Button('+10')
           .width(40)
           .height(30)
@@ -93,12 +93,12 @@ export struct YearMonthSelector {
           .padding(0)
           .fontSize(14)
           .onClick(() => {
-            this._navigateYears(10);
-          })
+            this.navigateYears(10);
+          });
       }
       .justifyContent(FlexAlign.Center)
       .alignItems(VerticalAlign.Center)
-      .margin({ bottom: 20 })
+      .margin({ bottom: 20 });
 
       if (this.isMonthView) {
         this.monthGridBuilder();
@@ -108,7 +108,7 @@ export struct YearMonthSelector {
     }
     .padding({ bottom: 20 })
     .width('100%')
-    .height('100%')
+    .height('100%');
   }
 
   @Builder
@@ -118,7 +118,7 @@ export struct YearMonthSelector {
         .fontSize(14)
         .fontWeight(month === this.selectedMonth ? FontWeight.Bold : FontWeight.Normal)
         .layoutWeight(1)
-        .height(20)
+        .height(20);
     }
     .borderRadius(10)
     .borderColor(month === this.selectedMonth ? Color.White : Color.Transparent)
@@ -132,7 +132,7 @@ export struct YearMonthSelector {
       if (this.onClose) {
         this.onClose();
       }
-    })
+    });
   }
 
   @Builder
@@ -142,7 +142,7 @@ export struct YearMonthSelector {
         .fontSize(14)
         .fontWeight(year === this.selectedYear ? FontWeight.Bold : FontWeight.Normal)
         .layoutWeight(1)
-        .height(20)
+        .height(20);
     }
     .borderRadius(10)
     .borderColor(year === this.selectedYear ? Color.White : Color.Transparent)
@@ -150,10 +150,10 @@ export struct YearMonthSelector {
     .onClick(() => {
       this.selectedYear = year;
       this.isMonthView = true;
-    })
+    });
   }
 
-  private _scrollToYear(value: number = 5): void {
+  private scrollToYear(value: number = 5): void {
     const selectedYearIndex = this.dataSource.getIndexByYear(this.selectedYear);
     if (selectedYearIndex === -1) {
       return;
@@ -161,11 +161,11 @@ export struct YearMonthSelector {
     this.scroller.scrollToIndex(selectedYearIndex + value);
   }
 
-  private _navigateYears(offset: number) {
+  private navigateYears(offset: number) {
     const newYear = this.selectedYear + offset;
     if (newYear >= this.minYear && newYear < this.maxYear) {
       this.selectedYear = newYear;
-      this._scrollToYear(offset > 0 ? 5 : -5);
+      this.scrollToYear(offset > 0 ? 5 : -5);
     }
   }
 }

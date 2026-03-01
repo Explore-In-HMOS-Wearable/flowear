@@ -1,4 +1,4 @@
-export class ListDataSource<T> implements IDataSource {
+export default class ListDataSource<T> implements IDataSource {
   private listeners: DataChangeListener[] = [];
   private dataArray: T[] = [];
 
@@ -34,4 +34,4 @@ export class ListDataSource<T> implements IDataSource {
       listener.onDataAdd(index);
     });
   }
-}
+};

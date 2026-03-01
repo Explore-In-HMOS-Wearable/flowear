@@ -7,41 +7,9 @@ import taskpool from '@ohos.taskpool';
 import { processRespTask } from '../common/ProcessRespTask';
 import { storage } from '../services/Storage';
 
-export class ManualLoginViewModel {
+export class LoginViewModel {
   accessToken: string = '';
   activationKey: string = '';
-
-  async getAccessTokenFromStorage(): Promise<string> {
-    const token = (await storage.get('accessToken')) ?? '';
-    this.accessToken = token;
-    return token;
-  }
-
-  async saveTokens(accessToken: string, refreshToken: string) {
-    await storage.set('accessToken', accessToken);
-    await storage.set('refreshToken', refreshToken);
-    this.accessToken = accessToken;
-  }
-
-  getQueryParameter(url: string, paramName: string): string | null {
-    const queryStartIndex = url.indexOf('?');
-    if (queryStartIndex === -1) {
-      return null;
-    }
-    const queryString = url.substring(queryStartIndex + 1);
-    const params = queryString.split('&');
-    for (const param of params) {
-      const parts = param.split('=');
-      if (parts.length === 2) {
-        const key = decodeURIComponent(parts[0]);
-        const value = decodeURIComponent(parts[1]);
-        if (key === paramName) {
-          return value;
-        }
-      }
-    }
-    return null;
-  }
 
   async postOAuthToken(code: string): Promise<string | null> {
     const httpRequest = http.createHttp();
@@ -89,5 +57,11 @@ export class ManualLoginViewModel {
         }
       );
     });
+  }
+
+  async saveTokens(accessToken: string, refreshToken: string) {
+    await storage.set('accessToken', accessToken);
+    await storage.set('refreshToken', refreshToken);
+    this.accessToken = accessToken;
   }
 }

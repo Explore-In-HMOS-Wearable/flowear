@@ -49,11 +49,11 @@ export struct SleepChartPage {
         });
       }
       .width(210)
-      .height(100)
+      .height(100);
     }
     .width('100%')
     .height('100%')
     .hideTitleBar(true)
-    .backgroundColor(Color.White)
+    .backgroundColor($r('app.color.background_color'));
   }
 }

@@ -11,10 +11,14 @@ export class HealthDataViewModel {
     return this.moodValue;
   }
 
+  async getAccessTokenFromStorage(): Promise<string> {
+    const token = (await storage.get('accessToken')) ?? '';
+    return token;
+  }
+
   updateCurrentStressStatus(moodLevel: number): string {
     const status = `Stress level: ${moodLevel >= 90 ? 'Happy' :
       moodLevel >= 60 ? 'Calm' : moodLevel >= 40 ? 'On Edge' : 'Very Stressful'}`;
     return status;
   }
-
 }

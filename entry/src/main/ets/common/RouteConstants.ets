@@ -9,4 +9,5 @@ export class RouteConstants {
   static readonly SUGGESTION_PAGE: string = 'SuggestionPage';
   static readonly HISTORY_PAGE: string = 'HistoryPage';
   static readonly BREATHE_PAGE: string = 'BreatheExercise';
+  static readonly STRETCH_PAGE: string = 'StretchExercise';
 }

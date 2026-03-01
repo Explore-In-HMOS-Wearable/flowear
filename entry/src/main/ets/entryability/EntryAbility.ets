@@ -3,6 +3,8 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
 import { storage } from '../services/Storage';
 import { initBootstrapIcons } from '@iakii/icons';
+import { BusinessError } from '@kit.BasicServicesKit';
+import { notificationManager } from '@kit.NotificationKit';
 
 const DOMAIN = 0x0000;
 
@@ -28,6 +30,15 @@ export default class EntryAbility extends UIAbility {
       }
       initBootstrapIcons();
       hilog.info(DOMAIN, 'testTag', 'Succeeded in loading the content.');
+      const requestEnableNotificationCallback = (err: BusinessError): void => {
+        if (err) {
+          hilog.error(0x0000, 'testTag',
+            `[ANS] requestEnableNotification failed, code is ${err.code}, message is ${err.message}`);
+        } else {
+          hilog.info(0x0000, 'testTag', `[ANS] requestEnableNotification success`);
+        }
+      };
+      notificationManager.requestEnableNotification(this.context, requestEnableNotificationCallback);
     });
   }
 
@@ -45,4 +56,4 @@ export default class EntryAbility extends UIAbility {
     // Ability has back to background
     hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onBackground');
   }
-}
+};

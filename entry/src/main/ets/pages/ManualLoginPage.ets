@@ -2,6 +2,7 @@ import { ManualLoginViewModel } from '../viewmodel/ManualLoginViewModel';
 import { APIConstants } from '../common/APIConstants';
 import { webview } from '@kit.ArkWeb';
 import { BusinessError } from '@kit.BasicServicesKit';
+import { Icon, Icons } from '@iakii/icons';
 
 @Entry
 @Component
@@ -59,6 +60,13 @@ export struct ManualLoginPage {
               }
               return false;
             });
+          Button() {
+            Icon({ icon: Icons.arrow_left_short, iconSize: 30, iconColor: Color.White });
+          }
+          .backgroundColor($r('app.color.main_color'))
+          .onClick(() => {
+            this.pageStack.pop();
+          });
         } else {
           Column() {
             Text('Access Token is:')
@@ -79,8 +87,9 @@ export struct ManualLoginPage {
         }
       }
       .height('90%')
-      .width('90%');
+      .width('100%');
     }
-    .hideBackButton(true)
+    .backgroundColor($r('app.color.background_color'))
+    .hideBackButton(true);
   }
 }

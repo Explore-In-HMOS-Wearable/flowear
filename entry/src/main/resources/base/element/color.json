@@ -7,6 +7,22 @@
     {
       "name": "main_color",
       "value": "#E86164"
+    },
+    {
+      "name": "light_main_color",
+      "value": "#F19FA2"
+    },
+    {
+      "name": "middle_choice",
+      "value": "#E8CD61"
+    },
+    {
+      "name": "bottom_choice",
+      "value": "#61E86A"
+    },
+    {
+      "name": "background_color",
+      "value": "#FDEFF0"
     }
   ]
 }

@@ -5,9 +5,9 @@ export struct HealthDataComponent {
 
   build() {
     Column() {
-      Image(this.image).size({ width: 140, height: 140 })
-      Text(this.text).fontColor(Color.Black)
+      Image(this.image).size({ width: 140, height: 140 });
+      Text(this.text).fontColor(Color.Black);
     }
-    .justifyContent(FlexAlign.Center)
+    .justifyContent(FlexAlign.Center);
   }
 }
