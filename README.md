@@ -1,3 +1,5 @@
+> **Note:** To access all shared projects, get information about environment setup, and view other guides, please visit [Explore-In-HMOS-Wearable Index](https://github.com/Explore-In-HMOS-Wearable/hmos-index).
+
 # Flowear
 A health application that offers period tracking, mood checking and personalized health recommendations based on your mood. Helping you better understand your body and emotional state.
 It supports a more informed and mindful daily routine.
